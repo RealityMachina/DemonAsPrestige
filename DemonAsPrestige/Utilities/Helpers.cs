@@ -32,11 +32,11 @@ namespace DemonAsPrestige.Utilities {
             init?.Invoke(result);
             return result;
         }
-        public static void RegisterClass(BlueprintCharacterClass class_to_register)
+        public static void RegisterClass(BlueprintCharacterClass ClassToRegister)
         {
             ProgressionRoot progressionRoot = ResourcesLibrary.GetRoot().Progression;
             List<BlueprintCharacterClassReference> allClasses = progressionRoot.m_CharacterClasses.ToList();
-            allClasses.Add(class_to_register.ToReference<BlueprintCharacterClassReference>());
+            allClasses.Add(ClassToRegister.ToReference<BlueprintCharacterClassReference>());
             allClasses.Sort(delegate (BlueprintCharacterClassReference x, BlueprintCharacterClassReference y)
             {
                 BlueprintCharacterClass tClass = ResourcesLibrary.TryGetBlueprint<BlueprintCharacterClass>(x.guid);
@@ -62,11 +62,10 @@ namespace DemonAsPrestige.Utilities {
                 return result;
             });
             progressionRoot.m_CharacterClasses = allClasses.ToArray();
-            //Helpers.classes.Add(class_to_register.ToReference<BlueprintCharacterClassReference>());
 
-            if (class_to_register.IsArcaneCaster || class_to_register.IsDivineCaster)
+            if (ClassToRegister.IsArcaneCaster || ClassToRegister.IsDivineCaster)
             {
-                BlueprintProgression.ClassWithLevel classWithLevel = Helpers.ClassToClassWithLevel(class_to_register, 0);
+                BlueprintProgression.ClassWithLevel classWithLevel = Helpers.ClassToClassWithLevel(ClassToRegister, 0);
                 BlueprintProgression spell_specialization_progression = ResourcesLibrary.TryGetBlueprint<BlueprintProgression>("fe9220cdc16e5f444a84d85d5fa8e3d5");
                 spell_specialization_progression.m_Classes = spell_specialization_progression.m_Classes.AppendToArray(new BlueprintProgression.ClassWithLevel[]
                 {
