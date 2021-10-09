@@ -54,6 +54,7 @@ namespace DemonAsPrestige
             var DemonPrestigeClass = Helpers.CreateBlueprint<BlueprintCharacterClass>("RMDemonPrestigeClass");
             var DemonProgressionVisual = Resources.GetBlueprint<BlueprintClassAdditionalVisualSettingsProgression>("5cffc56c62114d12ba5ac319660dc2bf");
             var LegendClass = Resources.GetBlueprint<BlueprintCharacterClass>("3d420403f3e7340499931324640efe96");
+            var FakeLegendClass = Resources.GetBlueprint<BlueprintCharacterClass>("b82f1fbd191e1f2498266ca41f05027f");
             var SorcSpellPerDay = Resources.GetBlueprint<BlueprintSpellsTable>("dbff16956df2eda48a1da5c9617cc836");
             var DemHuntProgress = Helpers.CreateBlueprint<BlueprintProgression>("RMDemonPrestigeProgression");
             DemHuntProgress.Ranks = 1;
@@ -102,19 +103,27 @@ namespace DemonAsPrestige
             DemonPrestigeClass.m_FortitudeSave = SavePrestigeHigh.ToReference<BlueprintStatProgressionReference>();
             DemonPrestigeClass.m_ReflexSave = SavePrestigeHigh.ToReference<BlueprintStatProgressionReference>();
             DemonPrestigeClass.m_WillSave = SavePrestigeHigh.ToReference<BlueprintStatProgressionReference>();
-            DemonPrestigeClass.ClassSkills = new StatType[] { StatType.SkillAthletics, StatType.SkillMobility, StatType.SkillPersuasion };
+            DemonPrestigeClass.ClassSkills = new StatType[] { StatType.SkillAthletics, StatType.SkillMobility, StatType.SkillPersuasion, StatType.SkillPerception };
             if (!Main.settings.NoRequirement)
             {
                 DemonPrestigeClass.AddComponent(Helpers.Create<PrerequisiteClassLevel>(c =>
                 {
                     c.m_CharacterClass = LegendClass.ToReference<BlueprintCharacterClassReference>();
                     c.Level = 1; //has to be a Legend
+                    c.Group = Prerequisite.GroupType.Any;
+                }));
+                DemonPrestigeClass.AddComponent(Helpers.Create<PrerequisiteClassLevel>(c =>
+                {
+                    c.m_CharacterClass = FakeLegendClass.ToReference<BlueprintCharacterClassReference>(); // potential bugfix for Legend?
+                    c.Level = 1; //has to be a Legend
+                    c.Group = Prerequisite.GroupType.Any;
+                    c.HideInUI = true;
                 }));
                 DemonPrestigeClass.AddComponent(Helpers.Create<PrerequisiteMainCharacter>(c =>
                 {
-                    //c.HideInUi = True;
+                    c.HideInUI = true;
                 }));
-                DemonPrestigeClass.HideIfRestricted = true;
+                DemonPrestigeClass.HideIfRestricted = false;
             }
             DemonPrestigeClass.LocalizedName = Main.MakeLocalizedString("RMDemonHuName","Demonic Hunter");
             DemonPrestigeClass.LocalizedDescription = Main.MakeLocalizedString("RMDemonHuDesc", "You've regained control of your mortal fate, but your trials and tribulations in this crusade has left its abyssal mark on you nonetheless. You can harness the powers of the abyss on your own terms, and be a legendary demon hunter of your own making.");
