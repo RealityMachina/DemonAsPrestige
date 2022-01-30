@@ -89,13 +89,5 @@ namespace DemonAsPrestige
             return new InvalidOperationException(message);
         }
 
-        public static LocalizedString MakeLocalizedString(string key, string value)
-        {
-            LocalizationManager.CurrentPack.Strings[key] = value;
-            LocalizedString localizedString = new LocalizedString();
-            typeof(LocalizedString).GetField("m_Key", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(localizedString, key);
-            return localizedString;
-        }
-
     }
 }

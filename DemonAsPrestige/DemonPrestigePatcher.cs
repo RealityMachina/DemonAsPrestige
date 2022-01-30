@@ -82,7 +82,7 @@ namespace DemonAsPrestige
 
           //  var SorcKnownTable = Resources.GetBlueprint<BlueprintSpellbook>("e3daa889c72982e45a026f62cc84937d");
             var DemHuntSpellbook = Helpers.CreateBlueprint<BlueprintSpellbook>("RMDemonPrestigeSpellbook");
-            DemHuntSpellbook.Name = Main.MakeLocalizedString("RMDemonicHuntSpellName", "Demonic Hunter");
+            DemHuntSpellbook.Name = Helpers.CreateString("RMDemonicHuntSpellName", "Demonic Hunter");
             DemHuntSpellbook.m_SpellsPerDay = SorcSpellPerDay.ToReference<BlueprintSpellsTableReference>();
             DemHuntSpellbook.m_SpellsKnown = SorcSpellPerDay.ToReference<BlueprintSpellsTableReference>();
             DemHuntSpellbook.m_SpellList = SpecialSpellList.ToReference<BlueprintSpellListReference>();
@@ -125,8 +125,8 @@ namespace DemonAsPrestige
                 }));
                 DemonPrestigeClass.HideIfRestricted = false;
             }
-            DemonPrestigeClass.LocalizedName = Main.MakeLocalizedString("RMDemonHuName","Demonic Hunter");
-            DemonPrestigeClass.LocalizedDescription = Main.MakeLocalizedString("RMDemonHuDesc", "You've regained control of your mortal fate, but your trials and tribulations in this crusade has left its abyssal mark on you nonetheless. You can harness the powers of the abyss on your own terms, and be a legendary demon hunter of your own making.");
+            DemonPrestigeClass.LocalizedName = Helpers.CreateString("RMDemonHuName","Demonic Hunter");
+            DemonPrestigeClass.LocalizedDescription = Helpers.CreateString("RMDemonHuDesc", "You've regained control of your mortal fate, but your trials and tribulations in this crusade has left its abyssal mark on you nonetheless. You can harness the powers of the abyss on your own terms, and be a legendary demon hunter of your own making.");
 
             Helpers.RegisterClass(DemonPrestigeClass);
         }
