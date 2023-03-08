@@ -149,7 +149,7 @@ namespace DemonAsPrestige.Extensions {
         public static void RemoveFeatures(this BlueprintFeatureSelection selection, params BlueprintFeature[] features) {
             foreach (var feature in features) {
                 var featureReference = feature.ToReference<BlueprintFeatureReference>();
-                if (selection.m_AllFeatures.Contains(featureReference)) {
+                if (selection.m_AllFeatures.Any(element => element == featureReference)) {
                     selection.m_AllFeatures = selection.m_AllFeatures.Where(f => !f.Equals(featureReference)).ToArray();
                 }
             }
@@ -159,7 +159,7 @@ namespace DemonAsPrestige.Extensions {
         public static void AddFeatures(this BlueprintFeatureSelection selection, params BlueprintFeature[] features) {
             foreach (var feature in features) {
                 var featureReference = feature.ToReference<BlueprintFeatureReference>();
-                if (!selection.m_AllFeatures.Contains(featureReference)) {
+                if (!selection.m_AllFeatures.Any(element => element == featureReference)) {
                     selection.m_AllFeatures = selection.m_AllFeatures.AppendToArray(featureReference);
                 }
             }
